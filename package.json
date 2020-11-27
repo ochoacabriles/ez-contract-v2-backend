@@ -1,0 +1,48 @@
+{
+  "name": "guifter-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "sls offline --stage local",
+    "db:seed": "babel-node db/scripts/drop.js && babel-node db/scripts/seed.js",
+    "db:seed:local": "babel-node db/scripts/drop.js local && babel-node db/scripts/seed.js local",
+    "db:update:terms:local": "babel-node db/scripts/updateTerms.js local",
+    "db:update:terms": "babel-node db/scripts/updateTerms.js",
+    "db:update:contract-sources:local": "babel-node db/scripts/updateContractSources.js local",
+    "db:update:contract-sources": "babel-node db/scripts/updateContractSources.js",
+    "test": "jest --config ./jest.config.js --coverage"
+  },
+  "dependencies": {
+    "@babel/core": "^7.10.2",
+    "@babel/node": "^7.10.3",
+    "@babel/preset-env": "^7.10.2",
+    "@paypal/checkout-server-sdk": "^1.0.2",
+    "apollo-server-express": "^2.14.3",
+    "aws-sdk": "^2.702.0",
+    "aws-serverless-express": "^3.3.8",
+    "babel-loader": "^8.1.0",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.5",
+    "core-js": "3",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.1.0",
+    "graphql-playground-middleware-express": "^1.7.18",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.19",
+    "normalize-mongo-id": "^2.0.0",
+    "serverless": "^1.72.0",
+    "serverless-offline": "^6.4.0",
+    "serverless-webpack": "^5.3.2",
+    "webpack": "^4.43.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
+    "jest": "^26.1.0",
+    "mongodb-memory-server": "^6.6.1",
+    "serverless-ignore": "^0.1.5"
+  }
+}

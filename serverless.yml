@@ -1,0 +1,39 @@
+service: ez-contract-backend-sls
+
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-ignore
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  stage: ${opt:stage, 'dev'}
+  environment:
+    LOCAL_DB_URI: 'mongodb://localhost/ez-contract'
+    AWS_SECRET: dev/ez-contract
+    STAGE: ${self:provider.stage}
+    S3_BUCKET: ez-contract-backend
+    JWT_SECRET: YuHPeIkZ48RbuntjMEUbvmKyCXoD6hgd
+
+functions:
+  graphql:
+    handler: index.handler
+    events:
+      - http:
+          path: graphql
+          method: post
+          cors: true
+  playground:
+    handler: index.handler
+    events:
+      - http:
+          path: playground
+          method: get
+          cors: true
