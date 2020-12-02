@@ -11,6 +11,9 @@ import contractSourceQueries from './contract-source/queries';
 // Credentials
 import credentialsQueries from './credentials/queries';
 
+// Tokens
+import tokenMutations from './token/mutations';
+
 // User
 import userQueries from './user/queries';
 import userMutations from './user/mutations';
@@ -25,6 +28,7 @@ const resolvers = {
   },
   Mutation: {
     ...authenticationMutations,
+    ...tokenMutations,
     ...userMutations
   }
 };

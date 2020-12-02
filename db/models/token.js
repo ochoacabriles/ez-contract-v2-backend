@@ -1,12 +1,21 @@
-import { Schema, model } from 'mongoose';
-import crypto from 'crypto';
+import { Schema, model } from 'mongoose'
 
-const tokenSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, required: true, ref: 'User' },
-  token: { type: String, default: () => crypto.randomBytes(24).toString('hex'), required: true },
-  type: { type: String, enum: ['PASSWORD', 'EMAIL'], required: true },
-  sentAt: { type: Date },
-  createdAt: { type: Date, required: true, default: Date.now, expires: 43200 }
-})
+const TokenSchema = new Schema({
+  user: { type: Schema.Types.ObjectId, required: true, ref: 'User '},
+  contract: { type: Schema.Types.ObjectId, required: true, ref: 'ContractSource' },
+  estimatedGas: { type: Number, required: true },
+  gasUsed: { type: Number },
+  address: { type: String },
+  blockNumber: { type: Number },
+  blockHash: { type: String },
+  transactionHash: { type: String, required: true },
+  createdAt: { type: Date, required: true, default: Date.now },
+  proprietaryAddress: { type: String, required: true },
+  type: { type: String, enum: ['basic', 'minted'] },
+  supply: { type: Number },
+  name: { type: String },
+  symbol: { type: String },
+  decimals: { type: Number }
+});
 
-export default model('Token', tokenSchema);
+export default model('Token', TokenSchema);

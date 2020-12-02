@@ -5,10 +5,10 @@ import { compareSync as comparePasswords } from 'bcryptjs';
 const authenticationQueries = {
   login: async (_, { userToLogin: { email, password } }, { res }) => {
     try {
-      const user = await User.findOne({ email: email.toLowerCase() }).populate('cities').populate('cart.product');
+      const user = await User.findOne({ email: email.toLowerCase() });
 
       if (!user || !comparePasswords(password, user.password)) {
-        throw new Error('loginError');
+        throw new Error('Please check your data and try again');
       }
 
       const secret = res.app.get('jwtSecret');
@@ -16,8 +16,8 @@ const authenticationQueries = {
 
       res.cookie('token', token, {
         maxAge: 86400 * 1000,
-        secure: !process.env.STAGE === 'local',
-        domain: process.env.STAGE === 'local' ? undefined : '.guifter.com'
+        secure: !(process.env.STAGE === 'local'),
+        domain: process.env.STAGE === 'local' ? 'localhost' : '.ez-contract.io'
       });
 
       const loggedUser = { 

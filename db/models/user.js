@@ -8,7 +8,7 @@ const UserSchema = new Schema({
   emailVerified: { type: Boolean, default: false, required: true },
   verfiedAt: { type: Date },
   isGlobalAdmin: { type: Boolean, default: false, required: true },
-  contracts: [{ type: Schema.Types.ObjectId, ref: 'Contract' }]
+  tokens: [{ type: Schema.Types.ObjectId, ref: 'Token' }]
 });
 
 export default model('User', UserSchema);

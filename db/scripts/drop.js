@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import { User } from '../models';
 
 dotenv.config();
 
@@ -12,7 +13,7 @@ const drop = async () => {
     useFindAndModify: false
   });
 
-  await mongoose.connection.dropDatabase();
+  await User.deleteMany();
 
   await mongoose.connection.close();
   console.log('✅  Database clean!');

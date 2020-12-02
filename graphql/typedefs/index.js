@@ -24,7 +24,7 @@ const typeDefs = gql`
     userByToken: User! @auth
 
     # Contract sources
-    contractSource(contractSourceId: ID!): ContractSource! @auth
+    contractSource(contractSourceId: ID!): ContractSource! # @auth
   }
 
   type Mutation {
@@ -33,6 +33,10 @@ const typeDefs = gql`
     emailVerify(token: String!): User! @auth
     requestPasswordToken(email: String!): Boolean!
     passwordRecovery(password: String!, token: String!): User!
+
+    # Contracts
+    tokenAdd(tokenToAdd: TokenToAdd!): Token! @auth
+    tokenConfirm(TokenToConfirm: TokenToConfirm!, tokenId: ID!): Token! @auth
 
     # User
     userEdit(userToEdit: UserToEdit!): User! @auth
@@ -100,6 +104,48 @@ const typeDefs = gql`
     abi: String!
     bytecode: String!
     createdAt: Date!
+  }
+
+  # Token
+  type Token {
+    id: ID!
+    user: User!
+    contract: ContractSource!
+    estimatedGas: Int!
+    address: String
+    blockNumber: Int
+    createdAt: Date!
+    proprietaryAddress: String!
+    type: TokenType!
+    supply: Int
+    name: String!
+    symbol: String!
+    decimals: Int!
+    blockHash: String
+  }
+
+  input TokenToAdd {
+    contract: ID!
+    transactionHash: String!
+    estimatedGas: Int!
+    proprietaryAddress: String!
+    type: TokenType!
+    supply: Int!
+    symbol: String!
+    name: String!
+    decimals: Int!
+  }
+
+  input TokenToConfirm {
+    address: String!
+    blockNumber: Int!
+    blockHash: String!
+    gasUsed: Int!
+  }
+
+  enum TokenType {
+    basic
+    minted
   }
 `;
 
