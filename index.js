@@ -1,5 +1,5 @@
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
 import graphiql from 'graphql-playground-middleware-express';
 import cookieParser from 'cookie-parser';
 import awsServerlessExpress from 'aws-serverless-express';
@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 const stage = process.env.STAGE;
 
-// app.use(cors());
+app.use(cors());
 
 server.applyMiddleware({ 
   app
