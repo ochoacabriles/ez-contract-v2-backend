@@ -18,7 +18,6 @@ provider:
   environment:
     LOCAL_DB_URI: 'mongodb://localhost/ez-contract'
     AWS_SECRET: ez-contract
-    AWS_REGION: us-east-1
     STAGE: ${self:provider.stage}
     S3_BUCKET: ez-contract-backend
     INFURA_MAINNET: https://mainnet.infura.io/v3/
