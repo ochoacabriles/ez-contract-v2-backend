@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 const stage = process.env.STAGE;
 
-app.use(cors({ origin: stage === 'local' ? '*' : 'https://app.ez-contract.io' }));
+app.use(cors({ origin: true }));
 
 server.applyMiddleware({ 
   app
