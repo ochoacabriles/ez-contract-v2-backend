@@ -17,7 +17,7 @@ const server = new ApolloServer({
   schemaDirectives,
   context: ({ req, res }) => {
     res.set('Access-Control-Allow-Credentials', true);
-    res.set('Access-Control-Allow-Origin', req.headers.origin);
+    res.set('Access-Control-Allow-Origin', 'https://app.ez-contract.io');
 
     // If user is logged, the token will be either in cookies (web) or in headers (mobile)
     let token;
