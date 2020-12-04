@@ -21,6 +21,9 @@ provider:
     STAGE: ${self:provider.stage}
     S3_BUCKET: ez-contract-backend
     JWT_SECRET: YuHPeIkZ48RbuntjMEUbvmKyCXoD6hgd
+    INFURA_MAINNET: https://mainnet.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
+    INFURA_ROPSTEN: https://ropsten.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
+    INFURA_RYNKEBY: https://rinkeby.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
 
 functions:
   graphql:

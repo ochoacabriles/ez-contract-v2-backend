@@ -1,4 +1,4 @@
-import { User, Token } from '../../../db/models';
+import { User, RecoveryToken } from '../../../db/models';
 import jwt from 'jsonwebtoken';
 import { hashSync as hash } from 'bcryptjs';
 import emailSend from '../utils/emailSend';
@@ -12,7 +12,6 @@ const authenticationMutations = {
 
       const user = new User(newUser);
       await user.save();
-      await user.populate('cities').execPopulate();
 
       const secret = res.app.get('jwtSecret');
       const token = jwt.sign({ id: user.id }, secret, { expiresIn: 86400 });
@@ -23,7 +22,7 @@ const authenticationMutations = {
         domain: undefined // Should change when domain is configured
       });
 
-      const verificationToken = new Token({ userId: user._id, type: 'EMAIL' });
+      const verificationToken = new RecoveryToken({ userId: user._id, type: 'EMAIL' });
       await verificationToken.save();
 
       const loggedUser = { token, user };
@@ -41,7 +40,7 @@ const authenticationMutations = {
     if (user.emailVerified) {
       return user;
     }
-    const isTokenValid = await Token.findOneAndDelete({ userId, token, type: 'EMAIL' });
+    const isTokenValid = await RecoveryToken.findOneAndDelete({ userId, token, type: 'EMAIL' });
     if (!isTokenValid) {
       throw new Error('invalidToken');
     }
@@ -54,9 +53,9 @@ const authenticationMutations = {
       throw new Error('invalidEmail');
     }
     const { _id: userId } = user;
-    let token = await Token.findOne({ userId, type: 'PASSWORD' });
+    let token = await RecoveryToken.findOne({ userId, type: 'PASSWORD' });
     if (!token) {
-      const newToken = new Token({ userId, type: 'PASSWORD' });
+      const newToken = new RecoveryToken({ userId, type: 'PASSWORD' });
       await newToken.save();
       token = newToken;
     }
@@ -68,7 +67,7 @@ const authenticationMutations = {
     return true;
   },
   passwordRecovery: async (_, { password, token }) => {
-    const { userId } = await Token.findOneAndDelete({ token, type: 'PASSWORD' });
+    const { userId } = await RecoveryToken.findOneAndDelete({ token, type: 'PASSWORD' });
     if (!userId) {
       throw new Error('invalidToken');
     }

@@ -1,7 +1,7 @@
 export default [
   {
     _id: '5fc15896126ac0cf498e6660',
-    name: 'erc20',
+    name: 'erc20 basic',
     abi: JSON.stringify([
       {
         'constant': true,

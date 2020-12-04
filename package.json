@@ -32,10 +32,10 @@
     "graphql-playground-middleware-express": "^1.7.18",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.19",
-    "normalize-mongo-id": "^2.0.0",
     "serverless": "^1.72.0",
     "serverless-offline": "^6.4.0",
     "serverless-webpack": "^5.3.2",
+    "web3": "^1.3.0",
     "webpack": "^4.43.0",
     "webpack-node-externals": "^1.7.2"
   },
