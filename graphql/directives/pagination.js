@@ -5,8 +5,7 @@ class paginationDirective extends SchemaDirectiveVisitor {
     const { resolve } = field;
     // eslint-disable-next-line no-param-reassign
     field.resolve = async (_, args, context) => {
-      const [results, count, params, aggregations] = await resolve.apply(this, [_, args, context]);
-      const { page, pageSize } = params;
+      const [results, count, page, pageSize, aggregations] = await resolve.apply(this, [_, args, context]);
       const pages = Math.ceil(count / pageSize);
       const prev = page > 1 ? page - 1 : null;
       const next = page < pages ? page + 1 : null;

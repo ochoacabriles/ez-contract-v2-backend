@@ -3,7 +3,6 @@ import { gql } from 'apollo-server-express';
 const typeDefs = gql`
   # Directives
   directive @auth on FIELD_DEFINITION
-  directive @normalizeId on FIELD_DEFINITION
   directive @paginate on FIELD_DEFINITION
 
   # Custom scalar
@@ -20,11 +19,14 @@ const typeDefs = gql`
     # Credentials
     getPaypalCredentials: PaypalCredentials! @auth
 
+    # Tokens
+    tokensByUser(page: Int, pageSize: Int): Tokens! @auth @paginate
+
     # User
     userByToken: User! @auth
 
     # Contract sources
-    contractSource(contractSourceId: ID!): ContractSource! # @auth
+    contractSource(contractSourceId: ID!): ContractSource! @auth
   }
 
   type Mutation {
@@ -36,7 +38,7 @@ const typeDefs = gql`
 
     # Contracts
     tokenAdd(tokenToAdd: TokenToAdd!): Token! @auth
-    tokenConfirm(TokenToConfirm: TokenToConfirm!, tokenId: ID!): Token! @auth
+    tokenConfirm(tokenId: ID!): Token! @auth
 
     # User
     userEdit(userToEdit: UserToEdit!): User! @auth
@@ -49,12 +51,6 @@ const typeDefs = gql`
     next: Int
     count: Int!
     pages: Int!
-  }
-
-  # Inputs
-  input QueryParams {
-    page: Int!
-    pageSize: Int!
   }
 
   # Credentials
@@ -111,6 +107,7 @@ const typeDefs = gql`
     id: ID!
     user: User!
     contract: ContractSource!
+    network: Network!
     estimatedGas: Int!
     address: String
     blockNumber: Int
@@ -124,9 +121,15 @@ const typeDefs = gql`
     blockHash: String
   }
 
+  type Tokens {
+    info: Info!
+    results: [Token]!
+  }
+
   input TokenToAdd {
     contract: ID!
     transactionHash: String!
+    network: Network!
     estimatedGas: Int!
     proprietaryAddress: String!
     type: TokenType!
@@ -146,6 +149,12 @@ const typeDefs = gql`
   enum TokenType {
     basic
     minted
+  }
+
+  enum Network {
+    mainnet
+    ropsten
+    rinkeby
   }
 `;
 

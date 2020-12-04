@@ -3,6 +3,7 @@ import { Schema, model } from 'mongoose'
 const TokenSchema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: 'User '},
   contract: { type: Schema.Types.ObjectId, required: true, ref: 'ContractSource' },
+  network: { type: String, required: true, enum: ['mainnet', 'ropsten', 'rinkeby']},
   estimatedGas: { type: Number, required: true },
   gasUsed: { type: Number },
   address: { type: String },

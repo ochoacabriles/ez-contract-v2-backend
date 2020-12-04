@@ -12,11 +12,14 @@ import contractSourceQueries from './contract-source/queries';
 import credentialsQueries from './credentials/queries';
 
 // Tokens
+import tokenQueries from './token/queries';
 import tokenMutations from './token/mutations';
+import tokenFields from './token/fields';
 
 // User
 import userQueries from './user/queries';
 import userMutations from './user/mutations';
+import contractSourceFields from './contract-source/fields';
 
 const resolvers = {
   Query: {
@@ -24,12 +27,20 @@ const resolvers = {
     ...configQueries,
     ...contractSourceQueries,
     ...credentialsQueries,
+    ...tokenQueries,
     ...userQueries
   },
   Mutation: {
     ...authenticationMutations,
     ...tokenMutations,
     ...userMutations
+  },
+  // Fields
+  ContractSource: {
+    ...contractSourceFields
+  },
+  Token: {
+    ...tokenFields
   }
 };
 

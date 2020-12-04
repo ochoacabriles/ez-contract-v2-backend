@@ -27,19 +27,11 @@ const getSecrets = (app) => {
         const { 
           mongoUri, 
           jwtSecret, 
-          braintreeMerchantId,
-          braintreePublicKey,
-          braintreePrivateKey,
-          paypalClientId,
-          paypalSecret
+          infuraApiKey
         } = JSON.parse(secret);
         app.set('mongoUri', mongoUri);
         app.set('jwtSecret', jwtSecret);
-        app.set('braintreeMerchantId', braintreeMerchantId);
-        app.set('braintreePublicKey', braintreePublicKey);
-        app.set('braintreePrivateKey', braintreePrivateKey);
-        app.set('paypalClientId', paypalClientId);
-        app.set('paypalSecret', paypalSecret);
+        app.set('infuraApiKey', infuraApiKey);
         resolve();
       }
     })
