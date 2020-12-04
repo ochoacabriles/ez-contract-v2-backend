@@ -14,7 +14,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-1
-  stage: ${opt:stage, 'prod'}
+  stage: ${opt:stage, 'dev'}
   environment:
     LOCAL_DB_URI: 'mongodb://localhost/ez-contract'
     AWS_SECRET: ez-contract

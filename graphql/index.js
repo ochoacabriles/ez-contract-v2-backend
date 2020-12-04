@@ -16,8 +16,8 @@ const server = new ApolloServer({
   resolvers,
   schemaDirectives,
   context: ({ req, res }) => {
-    res.set('access-control-allow-credentials', true);
-    res.set('access-control-allow-origin', req.headers.origin);
+    res.set('Access-Control-Allow-Credentials', true);
+    res.set('Access-Control-Allow-Origin', req.headers.origin);
 
     // If user is logged, the token will be either in cookies (web) or in headers (mobile)
     let token;
