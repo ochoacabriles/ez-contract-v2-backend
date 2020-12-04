@@ -38,3 +38,4 @@ functions:
       - http:
           path: playground
           method: get
+          cors: true
