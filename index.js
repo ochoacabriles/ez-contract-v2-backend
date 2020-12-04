@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 const stage = process.env.STAGE;
 
-app.use(cors({ origin: true, credentials: true }));
+app.use(cors());
 
 server.applyMiddleware({ 
   app
