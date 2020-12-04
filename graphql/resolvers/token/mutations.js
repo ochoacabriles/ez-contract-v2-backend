@@ -10,7 +10,7 @@ const tokenMutations = {
     const token = new Token(newToken);
     return token.save();
   },
-  tokenConfirm: async (_, { tokenId }) => {
+  tokenConfirm: async (_, { tokenId }, { res }) => {
     const token = await Token.findById(tokenId);
 
     const { transactionHash, network, address } = token;
@@ -19,7 +19,8 @@ const tokenMutations = {
       return token;
     }
     
-    const web3 = web3Client(network);
+    const infuraApiKey = res.app.get('infuraApiKey');
+    const web3 = web3Client(network, infuraApiKey);
 
     const transaction = await web3.eth.getTransactionReceipt(transactionHash);
 

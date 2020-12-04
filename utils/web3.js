@@ -7,11 +7,11 @@ const endpoints = {
   default: process.env.INFURA_MAINNET
 };
 
-const web3Client = network => {
+const web3Client = (network, infuraApiKey) => {
   const endpoint = endpoints[network] || endpoints.default;
 
   const web3 = new Web3(
-    new Web3.providers.HttpProvider(endpoint)
+    new Web3.providers.HttpProvider(`${endpoint}${infuraApiKey}`)
   );
   return web3;
 };

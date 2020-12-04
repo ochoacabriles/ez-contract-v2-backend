@@ -17,13 +17,13 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     LOCAL_DB_URI: 'mongodb://localhost/ez-contract'
-    AWS_SECRET: dev/ez-contract
+    AWS_SECRET: ez-contract
+    AWS_REGION: us-east-1
     STAGE: ${self:provider.stage}
     S3_BUCKET: ez-contract-backend
-    JWT_SECRET: YuHPeIkZ48RbuntjMEUbvmKyCXoD6hgd
-    INFURA_MAINNET: https://mainnet.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
-    INFURA_ROPSTEN: https://ropsten.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
-    INFURA_RYNKEBY: https://rinkeby.infura.io/v3/de6f981e225c4e3a8a0d120691b6866f
+    INFURA_MAINNET: https://mainnet.infura.io/v3/
+    INFURA_ROPSTEN: https://ropsten.infura.io/v3/
+    INFURA_RYNKEBY: https://rinkeby.infura.io/v3/
 
 functions:
   graphql:

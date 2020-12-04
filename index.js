@@ -6,7 +6,7 @@ import awsServerlessExpress from 'aws-serverless-express';
 
 // Graphql server
 import server from './graphql';
-// import getSecrets from './utils/secrets';
+import getSecrets from './utils/secrets';
 import connectToDatabase from "./db/connectionHandler";
 
 const app = express();
@@ -32,13 +32,17 @@ const handler = (event, ctx) => {
   ctx.callbackWaitsForEmptyEventLoop = true;
   // Configure secrets in the express app before returning the proxy
   // only for the first time
-  const mongoUri = process.env.LOCAL_DB_URI;
-  app.set('jwtSecret', process.env.JWT_SECRET);
-  // if (!app.get('mongoUri') || !app.get('jwtSecret')) {
-  //   getSecrets(app)
-  connectToDatabase(mongoUri)
-    .then(() => awsServerlessExpress.proxy(expressServer, event, ctx))
-    .catch((err) => { throw new Error(err) });
+  if (!app.get('mongoUri') || !app.get('jwtSecret')) {
+    getSecrets(app)
+      .then(() => {
+        const mongoUri = stage === 'local' ? process.env.LOCAL_DB_URI : app.get('mongoUri');
+        return connectToDatabase(mongoUri);
+      })
+      .then(() => awsServerlessExpress.proxy(expressServer, event, ctx))
+      .catch((err) => { throw new Error(err) });
+  } else {
+    return awsServerlessExpress.proxy(expressServer, event, ctx);
+  }
 };
 
 export { handler };
