@@ -1,4 +1,4 @@
-service: ez-contract-backend-sls
+service: ez-contract-backend
 
 plugins:
   - serverless-webpack
@@ -14,7 +14,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: us-east-1
-  stage: ${opt:stage, 'dev'}
+  stage: ${opt:stage, 'prod'}
   environment:
     LOCAL_DB_URI: 'mongodb://localhost/ez-contract'
     AWS_SECRET: ez-contract
