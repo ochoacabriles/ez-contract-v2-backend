@@ -1,13 +1,10 @@
 import AWS from 'aws-sdk';
 
 const getSecrets = (app) => {
-  const region = process.env.AWS_REGION;
   const secretName = process.env.AWS_SECRET;
 
   // Create a Secrets Manager client
-  const client = new AWS.SecretsManager({
-    region
-  });
+  const client = new AWS.SecretsManager();
 
   return new Promise((resolve, reject) => {
     client.getSecretValue({ SecretId: secretName }, (err, data) => {
