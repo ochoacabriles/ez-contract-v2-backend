@@ -4,6 +4,8 @@ const endpoints = {
   mainnet: process.env.INFURA_MAINNET,
   ropsten: process.env.INFURA_ROPSTEN,
   rinkeby: process.env.INFURA_RYNKEBY,
+  kovan: process.env.INFURA_KOVAN,
+  goerli: process.env.INFURA_GOERLI,
   default: process.env.INFURA_MAINNET
 };
 

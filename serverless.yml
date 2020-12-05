@@ -23,6 +23,8 @@ provider:
     INFURA_MAINNET: https://mainnet.infura.io/v3/
     INFURA_ROPSTEN: https://ropsten.infura.io/v3/
     INFURA_RYNKEBY: https://rinkeby.infura.io/v3/
+    INFURA_KOVAN: https://kovan.infura.io/v3/
+    INFURA_GOERLI: https://goerli.infura.io/v3/
 
 functions:
   graphql:
