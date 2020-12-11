@@ -107,7 +107,7 @@ const typeDefs = gql`
     id: ID!
     user: User!
     contract: ContractSource!
-    network: Network!
+    network: String!
     estimatedGas: Int!
     address: String
     blockNumber: Int
@@ -128,8 +128,9 @@ const typeDefs = gql`
 
   input TokenToAdd {
     contract: ID!
+    address: String
     transactionHash: String!
-    network: Network!
+    network: String!
     estimatedGas: Int!
     proprietaryAddress: String!
     type: TokenType!
@@ -140,7 +141,7 @@ const typeDefs = gql`
   }
 
   input TokenToConfirm {
-    address: String!
+    address: String
     blockNumber: Int!
     blockHash: String!
     gasUsed: Int!
@@ -149,12 +150,6 @@ const typeDefs = gql`
   enum TokenType {
     basic
     minted
-  }
-
-  enum Network {
-    mainnet
-    ropsten
-    rinkeby
   }
 `;
 

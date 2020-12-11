@@ -13,9 +13,9 @@ const tokenMutations = {
   tokenConfirm: async (_, { tokenId }, { res }) => {
     const token = await Token.findById(tokenId);
 
-    const { transactionHash, network, address } = token;
+    const { transactionHash, network, blockNumber: isConfirmed } = token;
 
-    if (address) {
+    if (isConfirmed) {
       return token;
     }
     
