@@ -20,7 +20,11 @@ const typeDefs = gql`
     getPaypalCredentials: PaypalCredentials! @auth
 
     # Tokens
-    tokensByUser(page: Int, pageSize: Int): Tokens! @auth @paginate
+    token(tokenId: ID!): Token!
+    tokensByUser(isIco: Boolean, page: Int, pageSize: Int): Tokens! @auth @paginate
+
+    # Icos
+    icosByUser(page: Int, pageSize: Int): Icos! @auth @paginate
 
     # User
     userByToken: User! @auth
@@ -36,9 +40,14 @@ const typeDefs = gql`
     requestPasswordToken(email: String!): Boolean!
     passwordRecovery(password: String!, token: String!): User!
 
-    # Contracts
+    # Token
     tokenAdd(tokenToAdd: TokenToAdd!): Token! @auth
     tokenConfirm(tokenId: ID!): Token! @auth
+
+    # Ico
+    icoAdd(icoToAdd: IcoToAdd!): Ico! @auth
+    icoConfirm(icoId: ID!): Ico! @auth
+    icoFund(icoId: ID!, fundingTransactionHash: String!): Ico! @auth
 
     # User
     userEdit(userToEdit: UserToEdit!): User! @auth
@@ -119,6 +128,7 @@ const typeDefs = gql`
     symbol: String!
     decimals: Int!
     blockHash: String
+    isIco: Boolean!
   }
 
   type Tokens {
@@ -150,6 +160,39 @@ const typeDefs = gql`
   enum TokenType {
     basic
     minted
+  }
+
+  # Ico
+  type Ico {
+    id: ID!
+    user: User!
+    contract: ContractSource!
+    token: Token!
+    estimatedGas: Int!
+    gasUsed: Int
+    address: String
+    blockNumber: Int
+    blockHash: String
+    transactionHash: String!
+    createdAt: Date!
+    proprietaryAddress: String!
+    rate: Float!
+    fundingTransactionHash: String
+  }
+
+  type Icos {
+    info: Info!
+    results: [Ico]!
+  }
+
+  input IcoToAdd {
+    contract: ID!
+    token: ID!
+    address: String
+    transactionHash: String!
+    estimatedGas: Int!
+    proprietaryAddress: String!
+    rate: Float!
   }
 `;
 

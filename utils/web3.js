@@ -6,14 +6,16 @@ const endpoints = {
   rinkeby: process.env.INFURA_RYNKEBY,
   kovan: process.env.INFURA_KOVAN,
   goerli: process.env.INFURA_GOERLI,
-  default: process.env.INFURA_MAINNET
+  local: process.env.LOCAL_URL
 };
 
 const web3Client = (network, infuraApiKey) => {
-  const endpoint = endpoints[network] || endpoints.default;
-
+  const endpoint = network === 'local'
+    ? endpoints.default
+    : `${endpoints[network]}${infuraApiKey}`;
+console.log({ endpoint })
   const web3 = new Web3(
-    new Web3.providers.HttpProvider(`${endpoint}${infuraApiKey}`)
+    new Web3.providers.HttpProvider(endpoint)
   );
   return web3;
 };
