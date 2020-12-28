@@ -5,16 +5,21 @@ import authenticationMutations from './authentication/mutations';
 // Configuration
 import configQueries from './config/queries';
 
-// Contract sources
+// Contract source
 import contractSourceQueries from './contract-source/queries';
 
 // Credentials
 import credentialsQueries from './credentials/queries';
 
-// Tokens
+// Token
 import tokenQueries from './token/queries';
 import tokenMutations from './token/mutations';
 import tokenFields from './token/fields';
+
+// Ico
+import icoQueries from './ico/queries';
+import icoMutations from './ico/mutations';
+import icoFields from './ico/fields';
 
 // User
 import userQueries from './user/queries';
@@ -28,11 +33,13 @@ const resolvers = {
     ...contractSourceQueries,
     ...credentialsQueries,
     ...tokenQueries,
+    ...icoQueries,
     ...userQueries
   },
   Mutation: {
     ...authenticationMutations,
     ...tokenMutations,
+    ...icoMutations,
     ...userMutations
   },
   // Fields
@@ -41,6 +48,9 @@ const resolvers = {
   },
   Token: {
     ...tokenFields
+  },
+  Ico: {
+    ...icoFields
   }
 };
 

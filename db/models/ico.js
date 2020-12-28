@@ -1,9 +1,9 @@
 import { Schema, model } from 'mongoose'
 
-const TokenSchema = new Schema({
+const IcoSchema = new Schema({
   user: { type: Schema.Types.ObjectId, required: true, ref: 'User '},
   contract: { type: Schema.Types.ObjectId, required: true, ref: 'ContractSource' },
-  network: { type: String, required: true },
+  token: { type: Schema.Types.ObjectId, required: true, ref: 'Token' },
   estimatedGas: { type: Number, required: true },
   gasUsed: { type: Number },
   address: { type: String },
@@ -13,11 +13,8 @@ const TokenSchema = new Schema({
   createdAt: { type: Date, required: true, default: Date.now },
   proprietaryAddress: { type: String, required: true },
   type: { type: String, enum: ['basic', 'minted'] },
-  supply: { type: Number },
-  name: { type: String },
-  symbol: { type: String },
-  decimals: { type: Number },
-  isIco: { type: Boolean, default: false }
+  rate: { type: Number },
+  fundingTransactionHash: { type: String }
 });
 
-export default model('Token', TokenSchema);
+export default model('Ico', IcoSchema);
