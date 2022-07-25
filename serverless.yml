@@ -33,7 +33,9 @@ functions:
       - http:
           path: graphql
           method: post
-          cors: true
+          cors:
+            origins:
+              - https://app.ez-contract.io
   playground:
     handler: index.handler
     events:
