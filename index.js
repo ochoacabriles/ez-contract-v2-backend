@@ -1,5 +1,4 @@
 import express from 'express';
-import cors from 'cors';
 import graphiql from 'graphql-playground-middleware-express';
 import cookieParser from 'cookie-parser';
 import awsServerlessExpress from 'aws-serverless-express';
@@ -16,13 +15,14 @@ app.use(cookieParser());
 
 const stage = process.env.STAGE;
 
-app.use(cors({
+const corsOptions = {
   origin: 'https://app.ez-contract.io',
   credentials: true,
-}));
+};
 
 server.applyMiddleware({ 
-  app
+  app,
+  cors: corsOptions,
 });
 
 // Configure graphql server
